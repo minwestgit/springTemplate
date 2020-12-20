@@ -1,4 +1,4 @@
-package com.my.db;
+package com.my.common.db;
 
 import java.lang.reflect.Array;
 import java.util.Collection;

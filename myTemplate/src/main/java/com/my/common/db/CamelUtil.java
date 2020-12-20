@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.my.db;
+package com.my.common.db;
 
 /*
  * Copyright 2008-2009 MOPAS(Ministry of Public Administration and Security).
