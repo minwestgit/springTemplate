@@ -109,6 +109,8 @@ public class LoginController {
 
                 if(bcryptPasswordEncoder.matches(userPassword, dbUserPassword)) {
                 	SessionUtil.setSession(loginMap, req, res);
+                	loginMap.put("sessionId", req.getSession().getId());
+                	loginService.insertLoginLog(loginMap);
                 } else {
                 	throw new Exception("PASSWORD_DO_NOT_MATCH");
                 }
