@@ -30,4 +30,11 @@
              , SYSDATE()
                )
     </insert>
+    
+    <update id="updateLogoutLog" parameterType="Map">
+        UPDATE ACCESS_LOG
+           SET LOGOUT_DATE = SYSDATE()
+         WHERE SESSION_ID = #{sessionId}
+           AND LOGOUT_DATE IS NULL
+    </update>
 </mapper>
