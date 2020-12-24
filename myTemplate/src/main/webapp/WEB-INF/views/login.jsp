@@ -29,6 +29,7 @@
 <script type="text/javascript" src="/resources/js/common/common.js"></script>
 <script type="text/javascript" src="/resources/js/common/util.js"></script>
 
+<jsp:include page="/common/ajaxCommon.do" />
 
 <script>
 
@@ -61,14 +62,10 @@
             if(check_validation() == false) {
                 return false;
             }
-            $.ajax({
-                url : '<c:url value="/" />loginUserValidation.json',
-                data : JSON.stringify($('#loginForm').serializeForm()),
-                type : 'post',
-                dataType : 'json',
-                contentType : "application/json; charset=UTF-8",
-                success : function(data) {
-                	console.log(JSON.stringify(data,null,4));
+            ajax.json(
+    	        '<c:url value="/"/>loginUserValidation.json',
+    	        JSON.stringify($('#loginForm').serializeForm()),
+    	    	function(data) {
                     if(data.returnCd == "Y") {
                         form = document.loginForm;
                         form.method = "post";
@@ -82,9 +79,8 @@
                     	return false;
                     }
                 }
-            });
+            );
         })
-
     });
 </script>
 </body>
