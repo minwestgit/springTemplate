@@ -55,6 +55,35 @@
             }
             return true;
         }
+        
+        $("#login").click(function(e){
+    		e.preventDefault();
+            if(check_validation() == false) {
+                return false;
+            }
+            $.ajax({
+                url : '<c:url value="/" />loginUserValidation.json',
+                data : JSON.stringify($('#loginForm').serializeForm()),
+                type : 'post',
+                dataType : 'json',
+                contentType : "application/json; charset=UTF-8",
+                success : function(data) {
+                	console.log(JSON.stringify(data,null,4));
+                    if(data.returnCd == "Y") {
+                        form = document.loginForm;
+                        form.method = "post";
+                        form.action = "<c:url value='/login.do'/>";
+                        form.submit();
+                    } else if(data.returnCd == "NOT_FOUND_USER") {
+                    	simpleAlert('<spring:message code="login.message.userIdNotFound"/>', 'error');
+                    	return false;
+                    } else {
+                    	simpleAlert('<spring:message code="login.message.loginFailed"/>', 'error');
+                    	return false;
+                    }
+                }
+            });
+        })
 
     });
 </script>
