@@ -107,7 +107,8 @@ public class LoginController {
     			String userPassword = (String) paramMap.get("userPassword");
                 String dbUserPassword = (String) loginMap.get("userPassword");
 
-                if(bcryptPasswordEncoder.matches(userPassword, dbUserPassword)) {
+                //if(bcryptPasswordEncoder.matches(userPassword, dbUserPassword)) {
+                if(userPassword.equals(dbUserPassword)) {
                 	SessionUtil.setSession(loginMap, req, res);
                 	loginMap.put("sessionId", req.getSession().getId());
                 	loginService.insertLoginLog(loginMap);

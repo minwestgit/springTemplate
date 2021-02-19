@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="/resources/css/default.css">
+    <link rel="stylesheet" href="./resources/css/default.css">
 
 </head>
 <body>
@@ -26,46 +26,39 @@
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
-<script type="text/javascript" src="/resources/js/common/common.js"></script>
-<script type="text/javascript" src="/resources/js/common/util.js"></script>
+<script type="text/javascript" src="./resources/js/common/common.js"></script>
+<script type="text/javascript" src="./resources/js/common/util.js"></script>
 
 <jsp:include page="/common/ajaxCommon.do" />
 
 <script>
-
     var inputText = "<spring:message code='common.message.inputText'/>";    // {0}을(를) 입력하여 주십시오.
-
     // sessionUserId가 존재하는 경우 로그인이 된 경우이므로 메인페이지로 이동
     if("${sessionUserId}"!=="") {
         top.location.href = '<c:url value="/loginConfirm.do" />';
     }
-
     $(document).ready(function() {
-
         function check_validation() {
             form = document.loginForm;
-
             if (form.userId.value == "") {
             	simpleAlert(inputText.replace("{0}", '<spring:message code="common.text.id"/>'));
                 return false;
             }
-
             if (form.userPassword.value == "") {
             	simpleAlert(inputText.replace("{0}", '<spring:message code="common.text.password"/>'));
                 return false;
             }
             return true;
         }
-        
-        $("#login").click(function(e){
+    	$("#login").click(function(e){
     		e.preventDefault();
             if(check_validation() == false) {
                 return false;
             }
-            ajax.json(
-    	        '<c:url value="/"/>loginUserValidation.json',
-    	        JSON.stringify($('#loginForm').serializeForm()),
-    	    	function(data) {
+	        ajax.json(
+	        	'<c:url value="/"/>loginUserValidation.json',
+	        	JSON.stringify($('#loginForm').serializeForm()),
+	            function(data) {
                     if(data.returnCd == "Y") {
                         form = document.loginForm;
                         form.method = "post";
@@ -78,9 +71,9 @@
                     	simpleAlert('<spring:message code="login.message.loginFailed"/>', 'error');
                     	return false;
                     }
-                }
+	            }
             );
-        })
+    	})
     });
 </script>
 </body>
